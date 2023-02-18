@@ -152,7 +152,6 @@ class BybitPrescreeningJobHelper:
             first_untested_buyer_imbalances_df.to_csv(
                 self.report_directory_path + "/first_untested_buyer_imbalances.csv", index=False)
 
-            self.format_untested_imbalances_to_tw_text_file(first_untested_buyer_imbalances)
             buyer_imb_tw = self.format_untested_imbalances_to_tw_text_file(first_untested_buyer_imbalances)
             with open(self.report_directory_path + "/first_untested_buyer_imbalances_for_tw.txt", "w") as f:
                 f.write(buyer_imb_tw)
@@ -167,7 +166,6 @@ class BybitPrescreeningJobHelper:
                 self.report_directory_path + "/first_untested_seller_imbalances.csv",
                 index=False)
 
-            self.format_untested_imbalances_to_tw_text_file(first_untested_seller_imbalances)
             seller_imb_tw = self.format_untested_imbalances_to_tw_text_file(first_untested_seller_imbalances)
             with open(self.report_directory_path + "/first_untested_seller_imbalances_for_tw.txt", "w") as f:
                 f.write(seller_imb_tw)
