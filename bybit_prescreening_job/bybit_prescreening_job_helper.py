@@ -142,8 +142,8 @@ class BybitPrescreeningJobHelper:
         seller_imbalances.to_csv(self.report_directory_path + "/seller_imbalances/{}.csv".format(symbol),
                                  index=False)
 
-    def write_report(self, first_untested_buyer_imbalances: pd.DataFrame,
-                     first_untested_seller_imbalances: pd.DataFrame) -> None:
+    def write_report(self, first_untested_buyer_imbalances: list,
+                     first_untested_seller_imbalances: list) -> None:
         if len(first_untested_buyer_imbalances) > 0:
             first_untested_buyer_imbalances_df = pd.DataFrame(first_untested_buyer_imbalances).sort_values(
                 "distance")
@@ -152,7 +152,9 @@ class BybitPrescreeningJobHelper:
             first_untested_buyer_imbalances_df.to_csv(
                 self.report_directory_path + "/first_untested_buyer_imbalances.csv", index=False)
 
-            self.write_untested_imbalances_to_tw_text_file(first_untested_buyer_imbalances)
+            buyer_imb_tw = self.format_untested_imbalances_to_tw_text_file(first_untested_buyer_imbalances)
+            with open(self.report_directory_path + "/first_untested_buyer_imbalances_for_tw.txt", "w") as f:
+                f.write(buyer_imb_tw)
 
         if len(first_untested_seller_imbalances) > 0:
             first_untested_seller_imbalances_df = pd.DataFrame(first_untested_seller_imbalances).sort_values("distance",
@@ -164,8 +166,13 @@ class BybitPrescreeningJobHelper:
                 self.report_directory_path + "/first_untested_seller_imbalances.csv",
                 index=False)
 
-            self.write_untested_imbalances_to_tw_text_file(first_untested_seller_imbalances)
+            seller_imb_tw = self.format_untested_imbalances_to_tw_text_file(first_untested_seller_imbalances)
+            with open(self.report_directory_path + "/first_untested_seller_imbalances_for_tw.txt", "w") as f:
+                f.write(seller_imb_tw)
 
-    def write_untested_imbalances_to_tw_text_file(self, first_untested_imbalances: list):
-        # TODO: @Lucka
-        pass
+    def format_untested_imbalances_to_tw_text_file(self, first_untested_imbalances: list) -> str:
+        result = ""
+        for imbalance in first_untested_imbalances:
+            symbol_formatted = "BYBIT:{}.P,".format(imbalance["symbol"])
+            result = result + symbol_formatted
+        return result
