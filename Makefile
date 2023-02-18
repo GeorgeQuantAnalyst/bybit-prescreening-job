@@ -10,6 +10,7 @@ PYTHON = python3
 FILES = input output
 
 APP_LOG_FOLDER="${HOME}/log/bybit-prescreening-job"
+REPORT_FOLDER="data/report"
 
 # Defines the default target that `make` will to try to make, or in the case of a phony target, execute the specified commands
 # This target is executed whenever we just type `make`
@@ -31,6 +32,7 @@ prepare:
 	. venv/bin/activate && ${PYTHON} -m pip install -U pip wheel setuptools
 	. venv/bin/activate && pip install -r requirements.txt
 	mkdir -p ${APP_LOG_FOLDER}
+	mkdir -p ${REPORT_FOLDER}
 
 test:
 	@echo "Testing ..."
