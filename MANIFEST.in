@@ -1,0 +1,8 @@
+include requirements.txt
+include config.yaml
+include logger.conf
+
+include doc/*.md
+include *.md
+include *.sh
+include Makefile

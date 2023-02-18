@@ -1,0 +1,13 @@
+preScreeningJob:
+    instrumentsCategory: linear
+    instrumentsSuffix: USDT
+    imbOlderThanDays: 3
+    type: swing # [swing, position]
+    typeOfReport: complete # [complete, compact]
+
+preScreeningJobHelper:
+    instrumentsInfoApiUrl: "https://api.bybit.com/derivatives/v3/public/instruments-info?category={}"
+    klinesApiUrl: "https://api.bybit.com/v5/market/kline?category={}&symbol={}&interval={}&start={}&end={}"
+
+imbalanceFinder:
+    countSkipCandles: 10
