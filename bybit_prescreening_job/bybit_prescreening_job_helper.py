@@ -152,7 +152,7 @@ class BybitPrescreeningJobHelper:
             first_untested_buyer_imbalances_df.to_csv(
                 self.report_directory_path + "/first_untested_buyer_imbalances.csv", index=False)
 
-            buyer_imb_tw = self.format_untested_imbalances_to_tw_text_file(first_untested_buyer_imbalances)
+            buyer_imb_tw = self.format_untested_imbalances_to_tw_text_file(first_untested_buyer_imbalances_df)
             with open(self.report_directory_path + "/first_untested_buyer_imbalances_for_tw.txt", "w") as f:
                 f.write(buyer_imb_tw)
 
@@ -166,13 +166,15 @@ class BybitPrescreeningJobHelper:
                 self.report_directory_path + "/first_untested_seller_imbalances.csv",
                 index=False)
 
-            seller_imb_tw = self.format_untested_imbalances_to_tw_text_file(first_untested_seller_imbalances)
+            seller_imb_tw = self.format_untested_imbalances_to_tw_text_file(first_untested_seller_imbalances_df)
             with open(self.report_directory_path + "/first_untested_seller_imbalances_for_tw.txt", "w") as f:
                 f.write(seller_imb_tw)
 
-    def format_untested_imbalances_to_tw_text_file(self, first_untested_imbalances: list) -> str:
+    def format_untested_imbalances_to_tw_text_file(self, first_untested_imbalances: pd.DataFrame) -> str:
         result = ""
-        for imbalance in first_untested_imbalances:
-            symbol_formatted = "BYBIT:{}.P,".format(imbalance["symbol"])
+
+        for index, row in first_untested_imbalances.iterrows():
+            symbol_formatted = "BYBIT:{}.P,".format(row["symbol"])
             result = result + symbol_formatted
+
         return result
